@@ -22,4 +22,8 @@ public class Contact
     [StringLength(11, ErrorMessage = "Phone number must be exactly 11 digits.")]
     [RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be exactly 11 digits.")]
     public string PhoneNumber { get; set; } = string.Empty;
+
+    [Required]
+    [Range(0, 999, ErrorMessage = "Age must be between 0 and 999.")]
+    public int Age { get; set; }
 }
