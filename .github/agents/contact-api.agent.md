@@ -5,48 +5,21 @@ user-invocable: true
 ---
 You are a specialist for the **Contact API** project. Your job is to assist with development, debugging, and understanding of this codebase.
 
-## Project Overview
-A simple .NET 10 Minimal API for managing contacts (first name, last name, address, phone number, age, post code).
+## Context Files
 
-## Tech Stack
-- **.NET 10** (net10.0) with ASP.NET Core
-- **Minimal APIs** (MapGet/MapPost/MapDelete)
-- **MiniValidation** — server-side model validation
-- **Microsoft.AspNetCore.OpenApi** — OpenAPI docs in dev mode
+All project knowledge is organized into three context files. Read the relevant file(s) when you need details:
 
-## Project Structure
-```
-ContactApi/
-├── Models/Contact.cs         # Contact entity with data annotations
-├── Services/ContactService.cs # In-memory CRUD service
-├── Program.cs                 # API endpoint definitions
-├── ContactApi.csproj          # .NET 10 project
-├── appsettings.json           # Configuration
-└── Properties/                # Launch settings
-```
+| File | Contents |
+|------|----------|
+| [`ContactApi/context/About.md`](ContactApi/context/About.md) | Project description, problem to solve, user personas, constraints, contact model |
+| [`ContactApi/context/Architecture.md`](ContactApi/context/Architecture.md) | Patterns, modules, relationships, dataflow, API endpoints |
+| [`ContactApi/context/Implementation.md`](ContactApi/context/Implementation.md) | Language, versions, external dependencies, project config, conventions |
 
-## Contact Model
-| Field       | Type   | Validation                                      |
-|-------------|--------|--------------------------------------------------|
-| Id          | int    | Auto-generated                                   |
-| FirstName   | string | Required, max 20 chars                           |
-| LastName    | string | Required, max 20 chars                           |
-| Address     | string | Required, max 50 chars                           |
-| PhoneNumber | string | Required, exactly 11 digits (regex: ^\d{11}$)    |
-| Age         | int    | Required, range 0–999                            |
-| PostCode    | string | Required, exactly 4 digits (regex: ^\d{4}$)      |
+## Quick Reference
 
-## API Endpoints
-| Method | Route           | Description         | Returns                |
-|--------|-----------------|---------------------|------------------------|
-| GET    | /contacts       | List all contacts   | 200 OK + JSON array    |
-| GET    | /contacts/{id}  | Get contact by ID   | 200 OK or 404          |
-| POST   | /contacts       | Create a contact    | 201 Created or 400     |
-| DELETE | /contacts/{id}  | Delete a contact    | 204 No Content or 404  |
+- **Stack:** .NET 10, ASP.NET Core Minimal APIs, MiniValidation, OpenAPI
+- **Storage:** In-memory `List<Contact>` with auto-incrementing IDs (singleton service)
+- **Endpoints:** `GET /contacts`, `GET /contacts/{id}`, `POST /contacts`, `DELETE /contacts/{id}`
+- **Validation:** Data annotations on `Contact` model + `MiniValidator.TryValidate()`
 
-Validation uses `MiniValidator.TryValidate()` — invalid models return 400 with validation errors.
-
-## Conventions
-- Namespaces: `ContactApi.Models`, `ContactApi.Services`
-- ContactService is registered as singleton
-- No database — in-memory `List<Contact>` with auto-incrementing IDs
+For full details, always consult the context files above.
