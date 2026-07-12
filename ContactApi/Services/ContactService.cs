@@ -24,4 +24,18 @@ public class ContactService
         if (contact is null) return false;
         return _contacts.Remove(contact);
     }
+
+    public Contact? Update(int id, Contact updated)
+    {
+        var contact = GetById(id);
+        if (contact is null) return null;
+
+        contact.FirstName = updated.FirstName;
+        contact.LastName = updated.LastName;
+        contact.Address = updated.Address;
+        contact.PhoneNumber = updated.PhoneNumber;
+        contact.Age = updated.Age;
+        contact.PostCode = updated.PostCode;
+        return contact;
+    }
 }
