@@ -13,6 +13,7 @@
 | C# Language | **14** (default for .NET 10) |
 | Microsoft.AspNetCore.OpenApi | **10.0.8** |
 | MiniValidation | **0.10.0** |
+| Microsoft.FeatureManagement.AspNetCore | **4.6.0** |
 
 ## External Dependencies
 
@@ -20,6 +21,7 @@
 |---------|---------|---------|
 | `Microsoft.AspNetCore.OpenApi` | 10.0.8 | Enables OpenAPI document generation in development mode (`/openapi/v1.json`) |
 | `MiniValidation` | 0.10.0 | Lightweight server-side model validation using data annotations — invoked via `MiniValidator.TryValidate()` |
+| `Microsoft.FeatureManagement.AspNetCore` | 4.6.0 | Feature flag system — allows toggling endpoints on/off via `appsettings.json` without code changes |
 
 ## Project Configuration
 - **SDK:** `Microsoft.NET.Sdk.Web`
@@ -31,4 +33,5 @@
 - **Namespaces:** `ContactApi.Models` for entities, `ContactApi.Services` for services
 - **Service registration:** `ContactService` is registered as a singleton (`AddSingleton<ContactService>()`)
 - **Storage:** In-memory `List<Contact>` with auto-incrementing integer IDs
-- **No update endpoint** — Only Create, Read, and Delete operations are exposed
+- **API Versioning:** Endpoints are grouped by version path (`/v1/`, `/v2/`). Legacy `/contacts` routes maintained for backward compatibility.
+- **Feature Flags:** Defined as constants in `FeatureFlags.cs`, toggled in `appsettings.json` under `"FeatureManagement"`. Evaluated at runtime via `IFeatureManager`.
